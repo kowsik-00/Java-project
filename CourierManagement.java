@@ -2,7 +2,6 @@
 // import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CourierManagement {
@@ -10,6 +9,7 @@ public class CourierManagement {
     ArrayList<Customer> customerList = new ArrayList<>();
     ArrayList<DeliverAgent> agents = new ArrayList<>();
     Admin adminmain;
+    LocalDate currentDate = LocalDate.now();
 
     public static void main(String[] args) {
 
@@ -29,7 +29,7 @@ public class CourierManagement {
         management.courierManagement = file.getcourierFile();
         management.agents = file.getagentFile();
         management.adminmain = file.getAdminFile();
-        // LocalDate currentDate = LocalDate.now();
+        
         // System.out.println("Current Date: " + currentDate);
         System.out.println(
                 BLUE + "╔═══════════════════════════════════════╗\n" +
@@ -144,16 +144,24 @@ public class CourierManagement {
                         count = i;
                     }
                 }
-                // System.out.println(semail.split("@")[1]);
                 emailcheck: while (true) {
-                    if (semail.split("@")[1].equalsIgnoreCase("gmail.com")
-                            || semail.split("@")[1].equalsIgnoreCase("gmail.in")) {
-                        break emailcheck;
-                    } else {
+                    try {
+                        if (semail.split("@")[1].equalsIgnoreCase("gmail.com")|| semail.split("@")[1].equalsIgnoreCase("gmail.in")||semail.split("@")[1].equalsIgnoreCase("zoho.com")) {
+                            break emailcheck;
+                        }else{
+                            System.out.print(RESET + YELLOW + "Enter correct format of e-mail:");
+                        semail = sc.nextLine();
+                        continue;
+                        }
+                    } catch (IndexOutOfBoundsException e) {
                         System.out.println(RESET + RED + "You Enter a wrong format of email " + RESET);
+
+                        System.out.print(RESET + YELLOW + "Enter correct format of e-mail:");
+                        semail = sc.nextLine();
+
                     }
-                    System.out.print(RESET + YELLOW + "Enter correct format of e-mail:");
-                    semail = sc.nextLine();
+                     
+                   
                 }
 
                 if (count >= 0) {
@@ -161,8 +169,18 @@ public class CourierManagement {
                 } else {
                     System.out.print(RESET + YELLOW + "Enter your name          :");
                     String name = sc.nextLine();
-                    System.out.print("Enter your Birth Year    :");
-                    String DOB = sc.nextLine();
+                    String DOB="";
+                    while (true) { 
+                        try {
+                            System.out.print("Enter your Birth Year    :");
+                            DOB= sc.nextLine();
+                            break;
+                        } catch (Exception e) {
+                            System.out.println(RESET+RED+"Invalid year."+RESET+YELLOW);
+                            continue;
+                        }
+                    }
+                    
                     int currentyear = 2025;
                     if ((currentyear) > Integer.parseInt(DOB)) {
                         System.out.print("Enter your Phone Number  :");
@@ -785,7 +803,7 @@ public class CourierManagement {
                 }
                 int length = courierManagement.size();
                 courier courier = new courier(("cu" + (++length)), c, receiverAddress, name,
-                        receiverPhoneNumber, courierWight, courierDetail, Paymethod);
+                        receiverPhoneNumber, courierWight, courierDetail, Paymethod,currentDate);
 
                 c.addcourier(courier);
 

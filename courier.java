@@ -1,6 +1,7 @@
 // package projectCode;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class courier implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -13,9 +14,10 @@ public class courier implements Serializable {
     String courierDetail;
     String courierStatus;
     String Paymethod;
+    LocalDate date;
 
     courier(String courierId, Customer customerDetail,  Address receiverAddress, String name,
-            String receiverPhoneNumber, double courierWight, String courierDetail, String Paymethod) {
+            String receiverPhoneNumber, double courierWight, String courierDetail, String Paymethod,LocalDate date) {
         this.courierId = courierId;
         this.customerDetail = customerDetail;
         this.receiverAddress = receiverAddress;
@@ -25,6 +27,7 @@ public class courier implements Serializable {
         this.courierDetail = courierDetail;
         courierStatus = "Processing";
         this.Paymethod = Paymethod;
+        this.date=date;
     }
 
     double courierAmount() {
@@ -60,7 +63,7 @@ public class courier implements Serializable {
     }
 
     String Bill() {
-        String bill = "╔═ Bill ════════════════════════════╗\n\nFrom \n\t" + customerDetail.name + ",\n\t"
+        String bill = "╔═ Bill ════════════════════════════╗\nDate:"+date+"\nFrom \n\t" + customerDetail.name + ",\n\t"
                 + customerDetail.PhoneNumber + "\n\t"
                 + customerDetail.address.doorNumber + "," + customerDetail.address.streetName + ",\n\t" + customerDetail.address.state + "  "
                 + customerDetail.address.pincode + "\n\t" + customerDetail.address.city + ".\n\nTo\n\t" + name + ",\n\t" + receiverPhoneNumber
