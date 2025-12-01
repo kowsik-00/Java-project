@@ -22,7 +22,7 @@ public class CourierManagement {
         String CYAN = "\u001B[36m";
 
         Scanner sc = new Scanner(System.in);
-        Filehandel file = new Filehandel();
+        Filehandle file = new Filehandle();
         file.createFile();
         CourierManagement management = new CourierManagement();
         management.customerList = file.getCustomerFile();
@@ -305,7 +305,7 @@ public class CourierManagement {
         String CYAN = "\u001B[36m";
         Scanner sc = new Scanner(System.in);
         int noId = agents.size();
-        Filehandel file = new Filehandel();
+        Filehandle file = new Filehandle();
         Admin admin = new Admin(null, null, null, null, null);
         int adminid = 1;
 
